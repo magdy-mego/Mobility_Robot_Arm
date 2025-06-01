@@ -54,19 +54,19 @@ void loop() {
     mservo2.write(srv2);
     delay(10);
   }
-
+  // Servo 2 (left)
   if (usechar == 'D' && srv2 > 0) {
     srv2--;
     mservo2.write(srv2);
     delay(10);
   }
-
+  // Servo 3 (forward)
   if (usechar == 'G' && srv3 < 120) {
     srv3++;
     mservo3.write(srv3);
     delay(10);
   }
-
+  // Servo 3 (back)
   if (usechar == 'J' && srv3 > 40) {
     srv3--;
     mservo3.write(srv3);
