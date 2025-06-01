@@ -16,14 +16,14 @@ int srv4 = 0; // Initial servo4 position
 char Incoming_value = 0;  // variable for incoming serial value
 char usechar = '0';         
 
-void setup() {
-  Serial.begin(9600);  
-  mservo1.attach(servo1); 
-  mservo2.attach(servo2); 
-  mservo3.attach(servo3); 
-  mservo4.attach(servo4); 
+void setup() {  
+  Serial.begin(9600); // Start serial communication at 9600 bps
+  mservo1.attach(servo1); // attaches the servo on pin 9 to the servo object
+  mservo2.attach(servo2); // attaches the servo on pin 8 to the servo object
+  mservo3.attach(servo3); // attaches the servo on pin 7 to the servo object
+  mservo4.attach(servo4); // attaches the servo on pin 6 to the servo object
 
-  mservo1.write(srv1); 
+  mservo1.write(srv1);     
   mservo2.write(srv2); 
   mservo3.write(srv3); 
   mservo4.write(srv4); 
