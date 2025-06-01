@@ -42,10 +42,10 @@ void loop() {
     mservo1.write(srv1);
     delay(10);
   }
-  
+  // Control servo 1 (base) down
   if (usechar == 'B' && srv1 > 50) {
-    srv1--;
-    mservo1.write(srv1);
+    srv1--; 
+    mservo1.write(srv1);  
     delay(10);
   }
 
