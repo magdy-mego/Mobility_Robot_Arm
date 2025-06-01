@@ -48,7 +48,7 @@ void loop() {
     mservo1.write(srv1);  
     delay(10);
   }
-  // Servo 2 (left)
+  // Servo 2 (right)
   if (usechar == 'C' && srv2 < 180) {
     srv2++;
     mservo2.write(srv2);
