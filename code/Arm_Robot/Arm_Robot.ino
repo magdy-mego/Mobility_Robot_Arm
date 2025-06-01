@@ -1,87 +1,82 @@
-#include <Servo.h>  //  Include the Servo library
+#include <Servo.h>
 
 // Define servo pins
-#define servo1 9   // Controls up-down
-#define servo2 8   // Controls left-right
-#define servo3 7  // Controls forward-backward
-#define servo4 6  // Controls the clamp
+#define SERVO1_PIN 9   // Controls up-down
+#define SERVO2_PIN 8   // Controls left-right
+#define SERVO3_PIN 7   // Controls forward-backward
+#define SERVO4_PIN 6   // Controls the clamp
 
-Servo mservo1, mservo2, mservo3, mservo4;  // Create servo objects
+// Create Servo objects
+Servo mservo1, mservo2, mservo3, mservo4;
 
-int srv1 = 100; // Initial servo1 position
-int srv2 = 0; // Initial servo2 position
-int srv3 = 80;  // Initial servo3 position
-int srv4 = 0; // Initial servo4 position
+// Initial servo positions
+int pos1 = 100;
+int pos2 = 0;
+int pos3 = 80;
+int pos4 = 0;
 
-char Incoming_value = 0;  // variable for incoming serial value
-char usechar = '0';         
+// Incoming character from serial
+char incomingValue = 0;
 
-void setup() {  
-  Serial.begin(9600); // Start serial communication at 9600 bps
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
 
-  mservo1.attach(servo1); // attaches the servo on pin 9 to the servo object
-  mservo2.attach(servo2); // attaches the servo on pin 8 to the servo object
-  mservo3.attach(servo3); // attaches the servo on pin 7 to the servo object
-  mservo4.attach(servo4); // attaches the servo on pin 6 to the servo object
-  // Set default positions on startup
-  mservo1.write(srv1);     
-  mservo2.write(srv2); 
-  mservo3.write(srv3); 
-  mservo4.write(srv4); 
+  // Attach servo objects to their respective pins
+  mservo1.attach(SERVO1_PIN); 
+  mservo2.attach(SERVO2_PIN);
+  mservo3.attach(SERVO3_PIN);
+  mservo4.attach(SERVO4_PIN);
+
+  // Set initial positions
+  mservo1.write(pos1);
+  mservo2.write(pos2);
+  mservo3.write(pos3);
+  mservo4.write(pos4);
+}
+
+// Function to move a servo within a specified range
+void moveServo(Servo &servo, int &pos, int delta, int minVal, int maxVal) {
+  int newPos = pos + delta;
+  if (newPos >= minVal && newPos <= maxVal) {
+    pos = newPos;
+    servo.write(pos);
+    delay(10); // Small delay to allow movement
+  }
 }
 
 void loop() {
-  // Receive data from serial port
+  // Check for serial input
   if (Serial.available() > 0) {
-    Incoming_value = Serial.read(); // Read the incoming byte
-    usechar = Incoming_value; // Store the incoming byte in a variable
+    incomingValue = Serial.read();
   }
-  // Control servo 1 (base) up down
-  if (usechar == 'A' && srv1 < 150) {
-    srv1++;
-    mservo1.write(srv1);
-    delay(10);
-  }
-  // Control servo 1 (base) down
-  if (usechar == 'B' && srv1 > 50) {
-    srv1--; 
-    mservo1.write(srv1);  
-    delay(10);
-  }
-  // Servo 2 (right)
-  if (usechar == 'C' && srv2 < 180) {
-    srv2++;
-    mservo2.write(srv2);
-    delay(10);
-  }
-  // Servo 2 (left)
-  if (usechar == 'D' && srv2 > 0) {
-    srv2--;
-    mservo2.write(srv2);
-    delay(10);
-  }
-  // Servo 3 (forward)
-  if (usechar == 'G' && srv3 < 120) {
-    srv3++;
-    mservo3.write(srv3);
-    delay(10);
-  }
-  // Servo 3 (back)
-  if (usechar == 'J' && srv3 > 40) {
-    srv3--;
-    mservo3.write(srv3);
-    delay(10);
-  }
-  // Servo 4 (open clamp)
-  if (usechar == 'F' && srv4 < 35) {
-    srv4++;
-    mservo4.write(srv4);
-    delay(10);
-  }
-  // Servo 4 (close clamp)
-  if (usechar == 'I' && srv4 > 0) {
-    srv4--;
-    mservo4.write(srv4);
-    delay(10);
+
+  // Handle servo movement based on received character
+  switch (incomingValue) {
+    case 'A': // Move servo1 up
+      moveServo(mservo1, pos1, +1, 50, 150);
+      break;
+    case 'B': // Move servo1 down
+      moveServo(mservo1, pos1, -1, 50, 150);
+      break;
+    case 'C': // Move servo2 right
+      moveServo(mservo2, pos2, +1, 0, 180);
+      break;
+    case 'D': // Move servo2 left
+      moveServo(mservo2, pos2, -1, 0, 180);
+      break;
+    case 'G': // Move servo3 forward
+      moveServo(mservo3, pos3, +1, 40, 120);
+      break;
+    case 'J': // Move servo3 backward
+      moveServo(mservo3, pos3, -1, 40, 120);
+      break;
+    case 'F': // Open clamp (servo4)
+      moveServo(mservo4, pos4, +1, 0, 35);
+      break;
+    case 'I': // Close clamp (servo4)
+      moveServo(mservo4, pos4, -1, 0, 35);
+      break;
+    default:
+      break; // Ignore any other input
   }
 }
