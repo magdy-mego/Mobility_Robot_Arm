@@ -6,15 +6,15 @@
 #define servo3 7  // Controls forward-backward
 #define servo4 6  // Controls the clamp
 
-Servo mservo1, mservo2, mservo3, mservo4;  
+Servo mservo1, mservo2, mservo3, mservo4;  // Create servo objects
 
-int srv1 = 100;
-int srv2 = 0;
-int srv3 = 80;
-int srv4 = 0;
+int srv1 = 100; // Initial servo1 position
+int srv2 = 0; // Initial servo2 position
+int srv3 = 80;  // Initial servo3 position
+int srv4 = 0; // Initial servo4 position
 
-char Incoming_value = 0; 
-char usechar = '0';      
+char Incoming_value = 0;  // variable for incoming serial value
+char usechar = '0';         
 
 void setup() {
   Serial.begin(9600);  
