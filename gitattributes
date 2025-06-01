@@ -1,0 +1,33 @@
+# Create the .gitattributes file with English comments
+gitattributes_content_en = """
+# Ensure all text files use LF for line endings in the repository
+* text=auto eol=lf
+
+# Force specific file types to use LF line endings
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+
+# Prevent Git from modifying binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.exe binary
+*.zip binary
+*.tar binary
+"""
+
+# Save the file with English comments
+file_path_en = "/mnt/data/.gitattributes"
+with open(file_path_en, "w") as f:
+    f.write(gitattributes_content_en.strip())
+
+file_path_en
