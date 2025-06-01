@@ -72,13 +72,13 @@ void loop() {
     mservo3.write(srv3);
     delay(10);
   }
-
+  // Servo 4 (open clamp)
   if (usechar == 'F' && srv4 < 35) {
     srv4++;
     mservo4.write(srv4);
     delay(10);
   }
-
+  // Servo 4 (close clamp)
   if (usechar == 'I' && srv4 > 0) {
     srv4--;
     mservo4.write(srv4);
