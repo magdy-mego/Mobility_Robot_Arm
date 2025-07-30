@@ -63,3 +63,6 @@ This project is open-source under the MIT License.
 ## Acknowledgments
 - Thanks to the Arduino community for the robust platform.
 - Special thanks to the creators of the HC-05 module for wireless control.
+
+My first edit from Ubuntu
+
